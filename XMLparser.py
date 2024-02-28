@@ -22,6 +22,10 @@ class XMLParser():
                         errorRate=[]
                         ord_nmb = []
                         source = []
+                        cadNumber=""
+                        view=""
+                        square_value = ""
+                        
                         for common_dataChild in land_record.iter("common_data"):
                             cadNumber=common_dataChild[1].text
                             view = common_dataChild[0][1].text
@@ -30,7 +34,8 @@ class XMLParser():
                             square = squareChild.iter("value")
                             for value in square:
                                 square_value = float(value.text)
-
+                                
+                            error_value = ""
                             area_error = squareChild.iter("inaccuracy")   
                             for error in area_error:
                                 error_value = float(error.text)
@@ -58,7 +63,19 @@ class XMLParser():
                             y.pop()
                         if errorRate:
                             errorRate.pop()
-                        self.ObjectMass.append(ObjectXML(area_error=error_value,view=view, cadNumber=cadNumber, errorRate=errorRate, x=x, y=y, square=square_value, source=source, ord_nmb=ord_nmb))
+                        self.ObjectMass.append(
+                                ObjectXML(
+                                    area_error=error_value,
+                                    view=view,
+                                    cadNumber=cadNumber,
+                                    errorRate=errorRate,
+                                    x=x,
+                                    y=y,
+                                    square=square_value,
+                                    source=source,
+                                    ord_nmb=ord_nmb
+                                )
+                            )
 
                 if(chaild.tag == "build_records"):
                     build_records=chaild
@@ -75,6 +92,7 @@ class XMLParser():
                             for value in square:
                                 square_value = float(value.text)
 
+                            error_value = ""
                             area_error = squareChild.iter("inaccuracy")   
                             for error in area_error:
                                 error_value = float(error.text)
@@ -119,6 +137,7 @@ class XMLParser():
                             for value in square:
                                 square_value = float(value.text)
 
+                            error_value = ""
                             area_error = squareChild.iter("inaccuracy")   
                             for error in area_error:
                                 error_value = float(error.text)
@@ -163,6 +182,7 @@ class XMLParser():
                             for value in square:
                                 square_value = float(value.text)
 
+                            error_value = ""
                             area_error = squareChild.iter("inaccuracy")   
                             for error in area_error:
                                 error_value = float(error.text)
