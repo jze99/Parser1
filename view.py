@@ -11,10 +11,10 @@ def viewsHendler(page):
     )
     
     def Pars(e):
-        if main_page.path_xml != "" and main_page.path_xslx != "":
+        if main_page.path_xml != "" and main_page.path_xslx_directory != "" or main_page.path_xslx != "" :
             page.go('/loding')
             if xml_parser.Parsing(pathXML=main_page.path_xml) == True:
-                if uploadPath(file_path= main_page.path_xslx) == True:
+                if uploadPath(file_path= main_page.path_xslx, directory_file=main_page.path_xslx_directory) == True:
                     page.go('/')
                 else:
                     page.go("/err")

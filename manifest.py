@@ -3,8 +3,8 @@ from view import viewsHendler
 
 def main(page: Page):
        
-    page.window_min_height = 600
-    page.window_height = 600
+    page.window_min_height = 300
+    page.window_height = 300
     page.window_min_width = 450
     page.window_width = 450
     page.title = "Парсер1"

@@ -1,18 +1,23 @@
 from XMLparser import xml_parser
 import openpyxl
+import datetime
 
-def uploadPath(file_path: str):
+def uploadPath(file_path: str, directory_file:str):
     
-    workbook = openpyxl.load_workbook(file_path)
+    if file_path!="" and directory_file == "":
+        workbook = openpyxl.load_workbook(file_path)
+        if '1' not in workbook.sheetnames:
+            workbook.create_sheet('1')
+            sheet = workbook['1']
+        else:
+            sheet = workbook['1']
+    
+    if file_path == "" and directory_file != "":
+        workbook = openpyxl.Workbook()
+        sheet = workbook.create_sheet("1")
+        workbook.create_sheet("2")
     
     newObjets = xml_parser.ObjectMass
-    
-    if '1' not in workbook.sheetnames:
-        workbook.create_sheet('1')
-        sheet = workbook['1']
-    else:
-        sheet = workbook['1']
-    
     row_number = sheet.max_row
     
     sheet.cell(row=row_number,column=1).value = "Кадастровый номер"
@@ -67,7 +72,13 @@ def uploadPath(file_path: str):
             
         row_number+=1
     try:
-        workbook.save(file_path)
+        
+        if file_path!="" and directory_file == "":
+            workbook.save(file_path)
+        if file_path == "" and directory_file != "":
+            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            file_name = f"/{current_datetime}.xlsx"
+            workbook.save(directory_file+file_name)
         
     except PermissionError:
         return False
